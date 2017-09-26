@@ -43,6 +43,7 @@ func (tranx NewTransaction) AuthOnly() (*TransactionResponse, error) {
 		Payment: &Payment{
 			CreditCard: tranx.CreditCard,
 		},
+		BillTo: tranx.BillTo,
 	}
 	response, err := SendTransactionRequest(new)
 	return response, err

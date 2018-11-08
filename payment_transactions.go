@@ -12,6 +12,7 @@ func (tranx NewTransaction) Charge() (*TransactionResponse, error) {
 		Payment: &Payment{
 			CreditCard: tranx.CreditCard,
 		},
+		Customer: tranx.Customer,
 		BillTo:   tranx.BillTo,
 		AuthCode: tranx.AuthCode,
 	}
@@ -27,7 +28,7 @@ func (tranx NewTransaction) ChargeProfile(profile Customer) (*TransactionRespons
 		Profile: &Profile{
 			CustomerProfileId: profile.ID,
 			PaymentProfile: &PaymentProfile{
-				PaymentProfileId: profile.PaymentID,
+				PaymentProfileId: "",
 			},
 		},
 	}
@@ -132,6 +133,7 @@ type NewTransaction struct {
 	InvoiceId  string     `json:"invoiceId,omitempty"`
 	RefTransId string     `json:"refTransId,omitempty"`
 	CreditCard CreditCard `json:"payment,omitempty"`
+	Customer   *Customer  `json:"customer,omitempty"`	
 	AuthCode   string     `json:"authCode,omitempty"`
 	BillTo     *BillTo    `json:"omitempty"`
 }
@@ -237,8 +239,6 @@ type Tax struct {
 type Customer struct {
 	ID          string `json:"id,omitempty"`
 	Email       string `json:"email,omitempty"`
-	PaymentID   string `json:"paymentId,omitempty"`
-	ShippingID  string `json:"shippingId,omitempty"`
 	PhoneNumber string `json:"phoneNumber,omitempty"`
 }
 
@@ -272,10 +272,10 @@ type TransactionRequest struct {
 	//Duty                Duty                `json:"duty,omitempty"`
 	//Shipping            Shipping            `json:"shipping,omitempty"`
 	//PoNumber            string              `json:"poNumber,omitempty"`
-	//Customer            Customer            `json:"customer,omitempty"`
-	BillTo     *BillTo  `json:"billTo,omitempty"`
-	ShipTo     *Address `json:"shipTo,omitempty"`
-	CustomerIP string   `json:"customerIP,omitempty"`
+	Customer   		*Customer	`json:"customer,omitempty"`
+	BillTo     		*BillTo  	`json:"billTo,omitempty"`
+	ShipTo     		*Address 	`json:"shipTo,omitempty"`
+	CustomerIP      string   	`json:"customerIP,omitempty"`
 	//TransactionSettings TransactionSettings `json:"transactionSettings,omitempty"`
 	//UserFields          UserFields          `json:"userFields,omitempty"`
 }

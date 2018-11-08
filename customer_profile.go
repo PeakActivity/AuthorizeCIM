@@ -123,8 +123,6 @@ func ValidatePaymentProfile(customer Customer) (*ValidateCustomerPaymentProfileR
 	action := ValidateCustomerPaymentProfileRequest{
 		ValidateCustomerPaymentProfile: ValidateCustomerPaymentProfile{
 			MerchantAuthentication:   GetAuthentication(),
-			CustomerProfileID:        customer.ID,
-			CustomerPaymentProfileID: customer.PaymentID,
 			ValidationMode:           testMode,
 		},
 	}
@@ -283,8 +281,6 @@ func DeletePaymentProfile(customer Customer) (*MessagesResponse, error) {
 	action := DeleteCustomerPaymentProfileRequest{
 		DeleteCustomerPaymentProfile: DeleteCustomerPaymentProfile{
 			MerchantAuthentication:   GetAuthentication(),
-			CustomerProfileID:        customer.ID,
-			CustomerPaymentProfileID: customer.PaymentID,
 		},
 	}
 	dat, err := MessageResponder(action)
@@ -296,7 +292,6 @@ func DeleteShippingProfile(customer Customer) (*MessagesResponse, error) {
 		DeleteCustomerShippingProfile: DeleteCustomerShippingProfile{
 			MerchantAuthentication: GetAuthentication(),
 			CustomerProfileID:      customer.ID,
-			CustomerShippingID:     customer.ShippingID,
 		},
 	}
 	dat, err := MessageResponder(action)
@@ -399,8 +394,6 @@ type DeleteCustomerPaymentProfileRequest struct {
 
 type DeleteCustomerPaymentProfile struct {
 	MerchantAuthentication   MerchantAuthentication `json:"merchantAuthentication"`
-	CustomerProfileID        string                 `json:"customerProfileId"`
-	CustomerPaymentProfileID string                 `json:"customerPaymentProfileId"`
 }
 
 type DeleteCustomerShippingProfileRequest struct {
@@ -410,7 +403,6 @@ type DeleteCustomerShippingProfileRequest struct {
 type DeleteCustomerShippingProfile struct {
 	MerchantAuthentication MerchantAuthentication `json:"merchantAuthentication"`
 	CustomerProfileID      string                 `json:"customerProfileId"`
-	CustomerShippingID     string                 `json:"customerAddressId"`
 }
 
 type GetShippingProfiles struct {
@@ -553,8 +545,6 @@ type ValidateCustomerPaymentProfileRequest struct {
 
 type ValidateCustomerPaymentProfile struct {
 	MerchantAuthentication   MerchantAuthentication `json:"merchantAuthentication"`
-	CustomerProfileID        string                 `json:"customerProfileId"`
-	CustomerPaymentProfileID string                 `json:"customerPaymentProfileId"`
 	ValidationMode           string                 `json:"validationMode"`
 }
 
